@@ -1,0 +1,7 @@
+**/.git
+**/node_modules
+dist/
+node_modules/
+*.http
+*.sh
+package-lock.json

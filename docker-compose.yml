@@ -1,0 +1,22 @@
+version: '3'
+services: 
+  api:
+    restart: always
+    build: .
+    volumes:
+      - .:/app
+    ports: 
+      - 8080:3000
+    depends_on:
+      - mongodb
+    environment:
+     - NODE_ENV=production
+     - CONNECTION_STRING='mongodb://mongodb:27017/zabawt'
+  mongodb:
+    image: mongo
+    ports: 
+      - 27017:27017
+  mongo_seed:
+    build: ./seed
+    links:
+      - mongodb

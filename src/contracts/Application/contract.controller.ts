@@ -27,7 +27,7 @@ import { GetContractsQuery } from './Queries/get-contracts.query';
 
 @ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 @ApiTags('Contracts')
-@Controller()
+@Controller('contracts')
 export class ContractController {
   constructor(
     private readonly commandBus: CommandBus,

@@ -1,5 +1,5 @@
 export default function Home() {
-  const handleSubmit = (event: MouseEvent) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     fetch('/login', {
       method: 'POST',

@@ -11,13 +11,16 @@ export class UsersService {
     return 'This action adds a new user';
   }
 
-  async findAll() {
-    console.error(await this.repository.findAll());
-    return await this.repository.findAll();
+  findAll() {
+    return this.repository.findAll();
   }
 
-  findOne(id: string) {
-    return this.repository.find(id);
+  async findOne(id: string) {
+    try {
+      return await this.repository.find(id);
+    } catch (err) {
+      throw new Error('User not found.');
+    }
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {

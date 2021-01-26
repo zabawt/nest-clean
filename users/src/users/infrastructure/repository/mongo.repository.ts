@@ -5,14 +5,8 @@ import { Model } from 'mongoose';
 import { UserRepository } from 'src/users/domain/repository/user.repository';
 import { User } from '../../domain/entities/user.entity';
 
-export const ContractSchema = new mongoose.Schema({
-  id: String,
-  validFrom: Date,
-  validTo: Date,
-  userId: Number,
-  created: Date,
-  updated: Date,
-});
+const UserSchemaInit = new mongoose.Schema();
+export const UserSchema = UserSchemaInit.loadClass(User);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type UserDocument = User & mongoose.Document;

@@ -4,39 +4,44 @@ services:
     restart: always
     build: 
       context: .
-      dockerfile: Web/Dockerfile
+      dockerfile: ./web/Dockerfile
     volumes:
-      - /web:/app/web
+      - ./web:/app
     ports: 
-      - 80:3000
-  users:
-    restart: always
-    build:
-      context: .
-      dockerfile: Users/Dockerfile
-    volumes:
-      - /users:/app/users
-    ports:
-      - 54070:3000
+      - 54060:3000
+  # users:
+  #   restart: always
+  #   build:
+  #     context: .
+  #     dockerfile: Users/Dockerfile
+  #   volumes:
+  #     - ./Users:/app/users
+  #   ports:
+  #     - 54070:3000
+  #   depends_on:
+  #     - mongodb
+  #   environment:
+  #    - NODE_ENV=production
+  #    - CONNECTION_STRING=mongodb://mongodb:27017/zabawt
   contracts:
     restart: always
     build:
       context: .
-      dockerfile: Contracts/Dockerfile
+      dockerfile: ./contracts/Dockerfile
     volumes:
-      - /contracts:/app/contracts
+      - ./contracts:/app
     ports: 
       - 54080:3000
     depends_on:
-      - mongodb_contracts
+      - mongodb
     environment:
      - NODE_ENV=production
-     - CONNECTION_STRING=mongodb://mongodb_contracts:27017/zabawt
-  mongodb_contracts:
+     - CONNECTION_STRING=mongodb://mongodb:27017/zabawt
+  mongodb: # each service should have their own persistance layer, this is being done only for showcase
     image: mongo
     ports: 
       - 27017:27017
   mongo_seed:
-    build: ./contracts/seed
+    build: ./mongo-seed
     links:
-      - mongodb_contracts
+      - mongodb

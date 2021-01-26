@@ -4,7 +4,7 @@ WORKDIR /app
 
 ADD . /app
 
-RUN npm install --quiet
+RUN npm install -s
 
 EXPOSE 3000
 

@@ -7,12 +7,14 @@ import { Grid, Link } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    marginBottom: 48,
   },
 }));
 
 export default function Navigation() {
+  const classes = useStyles();
   return (
-    <AppBar position="static">
+    <AppBar position="static" className={classes.root}>
       <Toolbar>
         <Grid container spacing={2}>
           <Grid item>

@@ -1,0 +1,22 @@
+@URL = http://localhost:3000
+@API_KEY = 72c49b83-9b86-490b-94cb-8eb0b6f9dc40
+@LOGIN = nkenaway0
+@PASS = gTaucn27Qf5K
+@ID = 5ac4d633-5332-4db9-a421-ef48ffa82747
+GET {{URL}}/users HTTP/1.1
+x-api-key: {{API_KEY}}
+
+###
+
+GET {{URL}}/users/{{ID}} HTTP/1.1
+x-api-key: {{API_KEY}}
+
+###
+POST {{URL}}/users/validate HTTP/1.1
+x-api-key: {{API_KEY}}
+Content-Type: application/json
+
+{
+    "login": "{{LOGIN}}",
+    "password": "{{PASS}}"
+}

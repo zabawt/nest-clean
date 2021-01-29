@@ -1,0 +1,70 @@
+version: '3'
+services:
+  # web: 
+  #   restart: always
+  #   build: 
+  #     context: .
+  #     dockerfile: ./web/Dockerfile
+  #   volumes:
+  #     - ./web:/app
+  #   ports: 
+  #     - 54050:3000
+  users-api:
+    restart: always
+    build:
+      context: ./users.service
+      dockerfile: Dockerfile
+    # volumes:
+    #   - ./users.service:/app
+    ports:
+      - 54060:3000
+    depends_on:
+      - mongodb
+    environment:
+      - API_KEY=72c49b83-9b86-490b-94cb-8eb0b6f9dc40
+      - CONNECTION_STRING=mongodb://mongodb:27017/zabawt
+
+### AUTH
+
+  auth:
+    restart: always
+    build:
+      context: ./auth.service
+      dockerfile: Dockerfile
+    # volumes:
+    #   - ./auth.service:/app
+    ports:
+      - 54070:3000
+    environment:
+      - JWT_SECRET=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      - USERS_SERVICE_URL=http://users-api:3000/users/validate
+      - USERS_API_KEY=72c49b83-9b86-490b-94cb-8eb0b6f9dc40
+
+### CONTRACTS
+
+  contracts:
+    restart: always
+    build:
+      context: ./contracts.service
+      dockerfile: Dockerfile
+    # volumes:
+    #   - ./contracts.service:/app
+    ports: 
+      - 54080:3000
+    depends_on:
+      - mongodb
+    environment:
+      - CONNECTION_STRING=mongodb://mongodb:27017/zabawt
+
+
+      ### DB
+  mongodb: # each service should have their own persistance layer, this is being done only for showcase
+    image: mongo
+    depends_on:
+      - mongo_seed
+    ports: 
+      - 27017:27017
+  mongo_seed:
+    build:
+      context: ./mongo-seed
+      dockerfile: Dockerfile

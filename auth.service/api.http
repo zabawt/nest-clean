@@ -1,0 +1,14 @@
+@URL = http://localhost:3000/auth
+@LOGIN = nkenaway0
+@PASS = gTaucn27Qf5K
+POST {{URL}}/sign-in
+Content-Type: application/json
+
+{
+    "login" : "{{LOGIN}}",
+    "password" : "{{PASS}}"
+}
+
+###
+
+POST {{URL}}/refresh

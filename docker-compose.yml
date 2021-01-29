@@ -1,14 +1,13 @@
 version: '3'
 services:
-  # web: 
-  #   restart: always
-  #   build: 
-  #     context: .
-  #     dockerfile: ./web/Dockerfile
-  #   volumes:
-  #     - ./web:/app
-  #   ports: 
-  #     - 54050:3000
+  web: 
+    restart: always
+    build: 
+      context: ./web.services
+      dockerfile: Dockerfile
+    ports: 
+      - 54050:3000
+      
   users-api:
     restart: always
     build:

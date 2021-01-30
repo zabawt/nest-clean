@@ -1,9 +1,9 @@
-import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { Contract } from 'src/contracts/domain/Entities/contract.entity';
-import { MongoRepository } from 'src/contracts/infrastructure/repositories/contract/mongo.repository';
+import { QueryHandler, IQueryHandler } from '@nestjs/cqrs';
+import { Contract } from '../../domain/Entities/contract.entity';
+import { MongoRepository } from '../../infrastructure/repositories/contract/mongo.repository';
 import { ContractDto } from '../dto/contract.dto';
-import { SignatoryDto } from '../DTO/signatory.dto';
-import { ValidityPeriodDto } from '../DTO/validity-period';
+import { SignatoryDto } from '../dto/signatory.dto';
+import { ValidityPeriodDto } from '../dto/validity-period';
 import { GetContractQuery } from './get-contract.query';
 
 @QueryHandler(GetContractQuery)

@@ -1,12 +1,12 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { ContractIdDto } from 'src/contracts/application/dto/contract-id';
-import { ContractDurationService } from 'src/contracts/application/services/contract-duration.service';
-import { IdGeneratorService } from 'src/contracts/application/services/id-generator.service';
-import { MissingUserId } from 'src/contracts/application/exceptions/missing-user-id.exception';
+import { Contract } from '../../domain/Entities/contract.entity';
+import { MongoRepository } from '../../infrastructure/repositories/contract/mongo.repository';
+import { ContractIdDto } from '../dto/contract-id';
+import { MissingFromDate } from '../exceptions/missing-from-date.exception';
+import { MissingUserId } from '../exceptions/missing-user-id.exception';
+import { ContractDurationService } from '../services/contract-duration.service';
+import { IdGeneratorService } from '../services/id-generator.service';
 import { CreateContractCommand } from './create-contract.command';
-import { Contract } from 'src/contracts/domain/Entities/contract.entity';
-import { MongoRepository } from 'src/contracts/infrastructure/repositories/contract/mongo.repository';
-import { MissingFromDate } from 'src/contracts/application/exceptions/missing-from-date.exception';
 
 @CommandHandler(CreateContractCommand)
 export class CreateContractHandler

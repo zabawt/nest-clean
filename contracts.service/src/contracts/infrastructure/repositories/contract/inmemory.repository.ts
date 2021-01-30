@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Contract } from '../../../domain/Entities/contract.entity';
-import { ContractRepository } from '../../../domain/Repositories/contract.repository';
+import { ContractRepository } from '../../../domain/repositories/contract.repository';
 
 @Injectable()
 export class InMemoryRepository implements ContractRepository {

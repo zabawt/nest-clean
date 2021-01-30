@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { Model } from 'mongoose';
 import { Contract } from '../../../domain/Entities/contract.entity';
-import { ContractRepository } from '../../../domain/Repositories/contract.repository';
+import { ContractRepository } from '../../../domain/repositories/contract.repository';
 
 export const ContractSchema = new mongoose.Schema({
   id: String,
@@ -20,7 +19,8 @@ type ContractDocument = Contract & mongoose.Document;
 @Injectable()
 export class MongoRepository implements ContractRepository {
   constructor(
-    @InjectModel(Contract.name) private contractModel: Model<ContractDocument>,
+    @InjectModel(Contract.name)
+    private contractModel: mongoose.Model<ContractDocument>,
   ) {}
 
   async find(id: string): Promise<Contract> {

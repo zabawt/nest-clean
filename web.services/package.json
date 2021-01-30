@@ -20,7 +20,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --config .eslintrc.js --fix"
+    "lint": "eslint \"{src,api,pages,translations}/**/*.ts*\" --fix"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.12.12",

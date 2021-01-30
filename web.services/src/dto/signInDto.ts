@@ -1,4 +1,4 @@
-import { IsString, IsAlphanumeric, Length } from "class-validator";
+import { IsString, IsAlphanumeric, Length } from 'class-validator';
 
 export class SignInDto {
   @IsString()

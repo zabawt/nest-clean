@@ -1,27 +1,56 @@
-import { Box, Button, Grid, TextField, Typography } from "@material-ui/core";
-import { Alert, AlertTitle } from "@material-ui/lab";
-import { AuthApi } from "../../../api/auth";
-import React, { ChangeEvent, FormEvent, useReducer } from "react";
-import { LoadingIndicator } from "../../components/loadingIndicator";
-import { SignInDto } from "../../dto/signInDto";
-import { ValidationError, Validator } from "class-validator";
-import { SignInForm } from "./interfaces";
-import { reducer } from "./reducer";
-import { changeField, setFormError, validateFields } from "./actions";
+import {
+  Avatar,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  Link,
+  makeStyles,
+  TextField,
+  Typography,
+} from '@material-ui/core';
+import { Alert, AlertTitle } from '@material-ui/lab';
+import { AuthApi } from '../../../api/auth';
+import React, { ChangeEvent, FormEvent, useReducer } from 'react';
+import { SignInDto } from '../../dto/signInDto';
+import { ValidationError, Validator } from 'class-validator';
+import { SignInForm } from './interfaces';
+import { reducer } from './reducer';
+import { changeField, setFormError, validateFields } from './actions';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 const initialState: SignInForm = {
   formError: false,
-  formErrorMessage: "",
+  formErrorMessage: '',
   errors: null,
   loading: false,
-  login: "",
-  password: "",
+  login: '',
+  password: '',
 };
 
 type fieldFunctions<T> = (field: string) => T;
 type changeHandler = (event: ChangeEvent<HTMLInputElement>) => void;
 
+const useStyles = makeStyles((theme) => ({
+  avatar: {
+    margin: theme.spacing(1),
+    marginTop: theme.spacing(2),
+    backgroundColor: theme.palette.primary.main,
+  },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(2, 0, 2),
+  },
+  fields: {
+    margin: theme.spacing(1, 0, 1),
+  },
+}));
+
 export const SignIn = () => {
+  const classes = useStyles();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleSubmit = async (event: FormEvent) => {
@@ -46,15 +75,15 @@ export const SignIn = () => {
 
       switch (result.status) {
         case 201:
-          location.replace("/contracts");
+          location.replace('/contracts');
         case 401:
-          dispatch(setFormError(true, "Incorrect credentials"));
+          dispatch(setFormError(true, 'Incorrect credentials'));
           break;
         case 400:
           dispatch(validateFields(JSON.parse(result.errors)));
           break;
         default:
-          throw new Error("Connection error.");
+          throw new Error('Connection error.');
       }
     } catch (err) {
       dispatch(setFormError(true, "We're sorry, but something went wrong."));
@@ -66,68 +95,74 @@ export const SignIn = () => {
 
   const hasError: fieldFunctions<boolean> = (field) => {
     return !!state.errors?.some(
-      (error: ValidationError) => error.property === field
+      (error: ValidationError) => error.property === field,
     );
   };
 
-  const fields = ["login", "password"];
+  const fields = ['login', 'password'];
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Grid container direction="column" spacing={3}>
-        <Grid item>
-          <LoadingIndicator loading={state.loading} />
-          <Box m={1}>
-            <Typography gutterBottom variant="h5" component="h5">
-              Sign-in
-            </Typography>
-          </Box>
-        </Grid>
-        <Grid item>
-          <Grid container spacing={0} direction="column" alignItems="center">
-            {fields.map((field) => (
-              <Grid item xs key={field}>
-                <TextField
-                  id={field}
-                  label={field}
-                  size="medium"
-                  onChange={handleChange(field)}
-                  error={hasError(field)}
-                  value={state[field]}
-                  key={`field-wrapper-${field}`}
-                />
-              </Grid>
-            ))}
+    <>
+      <Avatar className={classes.avatar}>
+        <LockOutlinedIcon />
+      </Avatar>
+      <Typography component="h1" variant="h5">
+        Sign in
+      </Typography>
+      <form onSubmit={handleSubmit} noValidate className={classes.form}>
+        {fields.map((field) => (
+          <TextField
+            id={field}
+            label={field}
+            onChange={handleChange(field)}
+            error={hasError(field)}
+            value={state[field]}
+            variant={'outlined'}
+            fullWidth
+            type={field}
+            required
+            className={classes.fields}
+            autoComplete={field}
+            key={`field-wrapper-${field}`}
+          />
+        ))}
+        <FormControlLabel
+          className={classes.fields}
+          control={<Checkbox value="remember" color="primary" />}
+          label="Remember me"
+        />
+        <Button
+          size="medium"
+          color="primary"
+          variant="contained"
+          className={classes.submit}
+          type="submit"
+          fullWidth
+          onClick={handleSubmit}
+        >
+          Sign-in
+        </Button>
+
+        <Grid container>
+          <Grid item xs>
+            <Link href="#" variant="body2">
+              Forgot password?
+            </Link>
           </Grid>
-        </Grid>
-        <Grid item>
-          <Grid container direction="row" justify="center">
-            <Box m={1}>
-              <Button
-                size="medium"
-                color="primary"
-                variant="contained"
-                onClick={handleSubmit}
-              >
-                Sign-in
-              </Button>
-            </Box>
-            <Box m={1}>
-              <Button size="medium" color="primary" disabled>
-                Reset password
-              </Button>
-            </Box>
-          </Grid>
-        </Grid>
-        {state.formError && (
           <Grid item>
-            <Alert severity="error" square={true}>
-              <AlertTitle>Error</AlertTitle>
-              {state.formErrorMessage}
-            </Alert>
+            <Link href="#" variant="body2">
+              {"Don't have an account? Sign Up"}
+            </Link>
           </Grid>
+        </Grid>
+
+        {state.formError && (
+          <Alert severity="error" className={classes.fields}>
+            <AlertTitle>Error</AlertTitle>
+            {state.formErrorMessage}
+          </Alert>
         )}
-      </Grid>
-    </form>
+      </form>
+    </>
   );
 };

@@ -1,9 +1,9 @@
-import { Actions, actions } from "./actions";
-import { Action, SignInForm } from "./interfaces";
+import { Actions, actions } from './actions';
+import { Action, SignInForm } from './interfaces';
 
 export const reducer = (
   state: SignInForm,
-  action: Action<actions>
+  action: Action<actions>,
 ): SignInForm => {
   switch (action.type) {
     case Actions.CHANGE_FIELD:
@@ -11,6 +11,6 @@ export const reducer = (
     case Actions.SET_FORM_ERROR:
       return { ...state, ...action.payload };
     default:
-      throw new Error("Invalid action dispatched.");
+      throw new Error('Invalid action dispatched.');
   }
 };

@@ -1,5 +1,5 @@
-import { ValidationError } from "class-validator";
-import { Action } from "./interfaces";
+import { ValidationError } from 'class-validator';
+import { Action } from './interfaces';
 
 export type actions =
   | ChangeFieldPayload
@@ -20,9 +20,9 @@ interface SetFormErrorPayload {
 }
 
 export enum Actions {
-  CHANGE_FIELD = "CHANGE_FIELD",
-  VALIDATE_FIELDS = "VALIDATE_FIELDS",
-  SET_FORM_ERROR = "SET_FORM_ERROR",
+  CHANGE_FIELD = 'CHANGE_FIELD',
+  VALIDATE_FIELDS = 'VALIDATE_FIELDS',
+  SET_FORM_ERROR = 'SET_FORM_ERROR',
 }
 const action = <T extends any>(type: string, payload?: T): Action<T> => ({
   type,

@@ -1,18 +1,33 @@
-import { Card, makeStyles } from "@material-ui/core";
-import { SignIn } from "../containers/SignIn/signIn";
+import { Container, CssBaseline, makeStyles, Paper } from '@material-ui/core';
 
-const useStyles = makeStyles(() => ({
+import React from 'react';
+import { SignIn } from '../containers/SignIn/signIn';
+
+const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 325,
-    minWidth: 325,
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: theme.spacing(3),
+    paddingTop: theme.spacing(0),
+    justifyContent: 'space-between',
+    borderWidth: 0,
+    borderTopWidth: theme.spacing(1),
+    borderColor: theme.palette.primary.main,
+    borderStyle: 'solid',
   },
 }));
 
 export const SignInCard = () => {
   const classes = useStyles();
   return (
-    <Card className={classes.root}>
-      <SignIn />
-    </Card>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+
+      <Paper className={classes.root}>
+        <SignIn />
+      </Paper>
+    </Container>
   );
 };

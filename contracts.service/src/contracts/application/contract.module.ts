@@ -17,6 +17,8 @@ import { GetContractsQuery } from './queries/get-contracts.query';
 import { ContractDurationService } from './services/contract-duration.service';
 import { IdGeneratorService } from './services/id-generator.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { GetContractsForUserHandler } from './queries/get-contracts-for-user.handler';
+import { GetContractsForUserQuery } from './queries/get-contracts-for-user.query';
 
 @Module({
   imports: [
@@ -38,6 +40,8 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     IdGeneratorService,
     ContractDurationService,
     JwtStrategy,
+    GetContractsForUserQuery,
+    GetContractsForUserHandler,
   ],
 })
 export class ContractModule {}

@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Contract } from '../../../domain/entities/contract.entity';
 import { ContractRepository } from '../../../domain/repositories/contract.repository';
+import { Query } from '../../../domain/repositories/query.interface';
 
 export const ContractSchema = new mongoose.Schema({
   id: String,
@@ -23,37 +24,44 @@ export class MongoRepository implements ContractRepository {
     private contractModel: mongoose.Model<ContractDocument>,
   ) {}
 
-  async find(id: string): Promise<Contract> {
+  private transform(contractDocument: ContractDocument): Contract {
     const {
-      id: contractId,
+      id,
       validTo,
       validFrom,
       created,
       updated,
       userId,
-    } = await this.contractModel.findOne({ id: id });
+    } = contractDocument;
 
-    return new Contract(
-      contractId,
-      validFrom,
-      validTo,
-      userId,
-      created,
-      updated,
+    return new Contract(id, validFrom, validTo, userId, created, updated);
+  }
+
+  private transformMany(contractDocuments: ContractDocument[]): Contract[] {
+    const contracts = contractDocuments.map((contractDocument) =>
+      this.transform(contractDocument),
     );
+    return contracts;
+  }
+
+  async find(id: string): Promise<Contract> {
+    const contractDocument = await this.contractModel.findOne({ id: id });
+
+    return this.transform(contractDocument);
   }
 
   async findAll(): Promise<Contract[]> {
     const contractDocuments = await this.contractModel.find();
-    const contracts = contractDocuments.map(
-      ({ id, validTo, validFrom, created, updated, userId }) =>
-        new Contract(id, validFrom, validTo, userId, created, updated),
-    );
-    return contracts;
+    return this.transformMany(contractDocuments);
   }
 
   async save(contract: Contract): Promise<void> {
     const created = new this.contractModel(contract);
     created.save();
+  }
+
+  async findBy(query: Query<any>): Promise<Contract[]> {
+    const contractDocuments = await this.contractModel.find(query);
+    return this.transformMany(contractDocuments);
   }
 }

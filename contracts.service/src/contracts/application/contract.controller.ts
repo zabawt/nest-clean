@@ -27,6 +27,7 @@ import { GetContractsQuery } from './queries/get-contracts.query';
 import { JwtAuthGuard } from './guards/jwt.guard';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ContractDto } from './dto/contract.dto';
+import { GetContractsForUserQuery } from './queries/get-contracts-for-user.query';
 
 @ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 @ApiTags('Contracts')
@@ -73,5 +74,14 @@ export class ContractController {
   @ApiOkResponse()
   async getContracts(): Promise<ContractDto[]> {
     return await this.queryBus.execute(new GetContractsQuery());
+  }
+
+  @Get('users/:id')
+  @ApiUnauthorizedResponse()
+  @ApiNotFoundResponse()
+  @ApiBadRequestResponse()
+  @ApiOkResponse()
+  async getContractsForUser(@Param('id') id: string): Promise<ContractDto[]> {
+    return await this.queryBus.execute(new GetContractsForUserQuery(id));
   }
 }

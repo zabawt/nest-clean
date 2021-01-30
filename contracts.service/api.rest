@@ -1,6 +1,6 @@
 @URL = http://localhost:3000/contracts
-@JWT = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YWM0ZDYzMy01MzMyLTRkYjktYTQyMS1lZjQ4ZmZhODI3NDciLCJuYW1lIjoiTmVkIEtlbmF3YXkiLCJpYXQiOjE1MTYyMzkwMjJ9.zPIXECvRrqGAyJ4zEwvNM3r6P7BAACtxkVj1WKLNWGg
-
+@JWT = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YWM0ZDYzMy01MzMyLTRkYjktYTQyMS1lZjQ4ZmZhODI3NDciLCJuYW1lIjoiTmVkIEtlbmF3YXkiLCJpYXQiOjE1MTYyMzkwMjJ9.Zy8AEkGDp7dbXjowlmnd9vcPfH4b3mZDz9UTpEkt1bc
+@USER_MANY = b1defb25-55b3-462a-beae-fb8c785a2b95
 # @name create
 POST {{URL}} HTTP/1.1
 Content-Type: application/json
@@ -12,7 +12,19 @@ Authorization: Bearer {{JWT}}
 }
 
 ###
+# with fixed user ID
+POST {{URL}} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{JWT}}
 
+{
+      "from": "{{$datetime iso8601}}",
+      "userId" : "{{USER_MANY}}"
+}
+
+
+###
+# Invalid post request
 POST {{URL}} HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{JWT}}
@@ -27,4 +39,9 @@ Authorization: Bearer {{JWT}}
 
 ###
 GET {{URL}} HTTP/1.1
+Authorization: Bearer {{JWT}}
+
+###
+
+GET {{URL}}/users/{{USER_MANY}}
 Authorization: Bearer {{JWT}}

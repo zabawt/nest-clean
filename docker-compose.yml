@@ -46,8 +46,6 @@ services:
     build:
       context: ./contracts.service
       dockerfile: Dockerfile
-    # volumes:
-    #   - ./contracts.service:/app
     ports: 
       - 54080:3000
     depends_on:

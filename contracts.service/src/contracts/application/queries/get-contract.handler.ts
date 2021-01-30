@@ -1,5 +1,5 @@
 import { QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { Contract } from '../../domain/Entities/contract.entity';
+import { Contract } from '../../domain/entities/contract.entity';
 import { MongoRepository } from '../../infrastructure/repositories/contract/mongo.repository';
 import { ContractDto } from '../dto/contract.dto';
 import { SignatoryDto } from '../dto/signatory.dto';

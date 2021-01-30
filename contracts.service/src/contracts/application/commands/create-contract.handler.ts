@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { Contract } from '../../domain/Entities/contract.entity';
+import { Contract } from '../../domain/entities/contract.entity';
 import { MongoRepository } from '../../infrastructure/repositories/contract/mongo.repository';
 import { ContractIdDto } from '../dto/contract-id';
 import { MissingFromDate } from '../exceptions/missing-from-date.exception';

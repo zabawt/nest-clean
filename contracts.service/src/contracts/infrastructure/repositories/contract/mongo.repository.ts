@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { Contract } from '../../../domain/Entities/contract.entity';
+import { Contract } from '../../../domain/entities/contract.entity';
 import { ContractRepository } from '../../../domain/repositories/contract.repository';
 
 export const ContractSchema = new mongoose.Schema({

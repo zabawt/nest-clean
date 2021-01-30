@@ -2,7 +2,7 @@ import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
-import { Contract } from '../domain/Entities/contract.entity';
+import { Contract } from '../domain/entities/contract.entity';
 import {
   ContractSchema,
   MongoRepository,

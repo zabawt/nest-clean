@@ -1,4 +1,4 @@
-import { Contract } from '../Entities/contract.entity';
+import { Contract } from '../entities/contract.entity';
 
 export interface ContractRepository {
   find(id: string): Promise<Contract>;

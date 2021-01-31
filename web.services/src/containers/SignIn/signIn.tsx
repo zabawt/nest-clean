@@ -10,7 +10,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
-import { AuthApi } from '../../../api/auth';
 import React, { ChangeEvent, FormEvent, useReducer } from 'react';
 import { SignInDto } from '../../dto/signInDto';
 import { ValidationError, Validator } from 'class-validator';
@@ -71,19 +70,22 @@ export const SignIn = () => {
 
   const submitForm = async (signInDto: SignInDto) => {
     try {
-      const result = await AuthApi.signIn(signInDto);
+      const result = await fetch('api/auth', {
+        body: JSON.stringify(signInDto),
+        method: 'POST',
+        credentials: 'include',
+      });
 
-      switch (result.status) {
-        case 201:
-          location.replace('/contracts');
-        case 401:
+      if (result.ok) {
+        location.replace('/contracts');
+      } else {
+        if (result.status === 401) {
           dispatch(setFormError(true, 'Incorrect credentials'));
-          break;
-        case 400:
-          dispatch(validateFields(JSON.parse(result.errors)));
-          break;
-        default:
-          throw new Error('Connection error.');
+        } else {
+          dispatch(
+            setFormError(true, "We're sorry, but something went wrong."),
+          );
+        }
       }
     } catch (err) {
       dispatch(setFormError(true, "We're sorry, but something went wrong."));

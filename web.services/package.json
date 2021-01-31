@@ -11,6 +11,8 @@
     "babel-plugin-styled-components": "^1.12.0",
     "class-validator": "^0.13.1",
     "clsx": "latest",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^8.5.1",
     "next": "latest",
     "prop-types": "latest",
     "react": "latest",

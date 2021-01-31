@@ -30,8 +30,8 @@ services:
     build:
       context: ./auth.service
       dockerfile: Dockerfile
-    # volumes:
-    #   - ./auth.service:/app
+    volumes:
+      - ./auth.service:/app
     ports:
       - 54070:3000
     environment:

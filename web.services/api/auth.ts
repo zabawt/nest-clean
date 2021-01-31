@@ -5,6 +5,7 @@ export const AuthApi = {
     const response = await fetch(process.env.authUri, {
       method: 'POST',
       body: JSON.stringify(signInDto),
+      credentials: 'include',
       cache: 'no-cache',
       headers: new Headers({
         Accept: 'application/json',

@@ -8,6 +8,7 @@ import {
   BadGatewayException,
   Logger,
   Res,
+  Options,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -40,23 +41,18 @@ export class AuthController {
       .toPromise()
       .then(async ({ data }) => {
         const token = await this.authService.login(data);
-        response.cookie('jwt', token.access_token);
+
+        response.cookie('jwt', token.access_token, {
+          httpOnly: true,
+        });
         return token;
       })
       .catch((err: Error) => {
-        if (err.message.indexOf('404') > -1) {
-          this.logger.log(
-            `Login attempt with ${signInUserDto.login} failed.`,
-            err.message,
-          );
-          throw new UnauthorizedException();
-        } else {
-          this.logger.error(
-            `Login attempt with ${signInUserDto.login} failed.`,
-            err.message,
-          );
-          throw new BadGatewayException();
-        }
+        this.logger.log(
+          `Login attempt with ${signInUserDto.login} failed.`,
+          err.message,
+        );
+        throw new UnauthorizedException();
       });
   }
 

@@ -1,4 +1,4 @@
-import { SignInCard } from '../src/components/signInCard';
+import { SignInCard } from '../components/signInCard';
 import React from 'react';
 import { NextPage } from 'next';
 

@@ -1,7 +1,7 @@
 import { Container, CssBaseline, makeStyles, Paper } from '@material-ui/core';
 
 import React from 'react';
-import { SignIn } from '../containers/SignIn/signIn';
+import { SignIn } from './SignIn/signIn';
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -16,7 +16,7 @@ Page.getInitialProps = async ({ req }) => {
     const decoded = jwt.verify(token, process.env.jwtSecret);
 
     const data = await fetch(
-      `http://localhost:3020/contracts/users/${decoded.sub}`,
+      `${process.env.contractsUri}/users/${decoded.sub}`,
       {
         method: 'GET',
         credentials: 'include',

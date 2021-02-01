@@ -3,7 +3,7 @@ services:
   web: 
     restart: always
     build: 
-      context: ./web-service
+      context: ./packages/web-service
       dockerfile: Dockerfile
     ports: 
       - 54050:3000
@@ -11,7 +11,7 @@ services:
   users-api:
     restart: always
     build:
-      context: ./users-service
+      context: ./packages/users-service
       dockerfile: Dockerfile
     # volumes:
     #   - ./users.service:/app
@@ -28,7 +28,7 @@ services:
   auth:
     restart: always
     build:
-      context: ./auth-service
+      context: ./packages/auth-service
       dockerfile: Dockerfile
     volumes:
       - ./auth-service:/app
@@ -44,7 +44,7 @@ services:
   contracts:
     restart: always
     build:
-      context: ./contracts-service
+      context: ./packages/contracts-service
       dockerfile: Dockerfile
     ports: 
       - 54080:3000

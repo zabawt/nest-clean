@@ -19,7 +19,7 @@
     "react-dom": "latest"
   },
   "scripts": {
-    "dev": "next",
+    "start:dev": "next",
     "build": "next build",
     "start": "next start",
     "lint": "eslint \"{src,api,pages,translations}/**/*.ts*\" --fix"

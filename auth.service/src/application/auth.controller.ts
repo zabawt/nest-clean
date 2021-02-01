@@ -10,6 +10,7 @@ import {
   Res,
   Options,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import {
   ApiBadRequestResponse,
   ApiOkResponse,
@@ -26,6 +27,7 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly logger: Logger,
+    private readonly configService: ConfigService,
   ) {}
 
   @ApiUnauthorizedResponse()

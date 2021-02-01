@@ -70,10 +70,14 @@ export const SignIn = () => {
 
   const submitForm = async (signInDto: SignInDto) => {
     try {
-      const result = await fetch('api/auth', {
+      const result = await fetch('http://localhost:3010/auth/sign-in', {
         body: JSON.stringify(signInDto),
         method: 'POST',
         credentials: 'include',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        }),
       });
 
       if (result.ok) {

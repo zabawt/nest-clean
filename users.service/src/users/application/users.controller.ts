@@ -65,13 +65,13 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    throw new NotImplementedException();
-  }
+  // @Put(':id')
+  // update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  //   throw new NotImplementedException();
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    throw new NotImplementedException();
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   throw new NotImplementedException();
+  // }
 }

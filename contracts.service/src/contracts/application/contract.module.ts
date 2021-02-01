@@ -1,7 +1,7 @@
 import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { Contract } from '../domain/entities/contract.entity';
 import {
   ContractSchema,
@@ -37,6 +37,7 @@ import { GetContractsForUserQuery } from './queries/get-contracts-for-user.query
     GetContractHandler,
     GetContractQuery,
     MongoRepository,
+    Logger,
     IdGeneratorService,
     ContractDurationService,
     JwtStrategy,

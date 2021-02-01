@@ -7,6 +7,7 @@ import {
   Post,
   InternalServerErrorException,
   UseGuards,
+  Logger,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import {
@@ -37,6 +38,7 @@ export class ContractController {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
+    private readonly logger: Logger,
   ) {}
 
   @Post()
@@ -82,6 +84,7 @@ export class ContractController {
   @ApiBadRequestResponse()
   @ApiOkResponse()
   async getContractsForUser(@Param('id') id: string): Promise<ContractDto[]> {
+    this.logger.debug('log', id);
     return await this.queryBus.execute(new GetContractsForUserQuery(id));
   }
 }

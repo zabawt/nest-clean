@@ -5,6 +5,8 @@ import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
 
+const PORT = process.env.PORT || 3000;
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(compression()).use(cookieParser());
@@ -16,6 +18,6 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
-  await app.listen(3000);
+  await app.listen(PORT);
 }
 bootstrap();

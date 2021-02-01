@@ -24,7 +24,6 @@ export const SignInCard = () => {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-
       <Paper className={classes.root}>
         <SignIn />
       </Paper>

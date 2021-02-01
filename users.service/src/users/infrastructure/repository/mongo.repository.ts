@@ -22,9 +22,7 @@ type UserDocument = User & mongoose.Document;
 export class MongoRepository implements UserRepository {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async find(id: string): Promise<User> {
-    const userDocument = await this.userModel.findOne({ id: id });
-    if (!userDocument) throw new Error(`Record with ${id} not found.`);
+  private transform(userDocument: UserDocument): User {
     return new User(
       userDocument.id,
       userDocument.login,
@@ -36,33 +34,23 @@ export class MongoRepository implements UserRepository {
     );
   }
 
+  async find(id: string): Promise<User> {
+    const userDocument = await this.userModel.findOne({ id: id });
+    if (!userDocument) throw new Error(`Record with ${id} not found.`);
+    return this.transform(userDocument);
+  }
+
   async findBy(query): Promise<User> {
     const userDocument = await this.userModel.findOne(query);
-    return new User(
-      userDocument.id,
-      userDocument.login,
-      userDocument.password,
-      userDocument.role,
-      userDocument.email,
-      userDocument.first_name,
-      userDocument.last_name,
-    );
+    return this.transform(userDocument);
   }
 
   async findAll(): Promise<User[]> {
     const userDocuments = await this.userModel.find();
 
-    const users = userDocuments.map((userDocument) => {
-      return new User(
-        userDocument.id,
-        userDocument.login,
-        userDocument.password,
-        userDocument.role,
-        userDocument.email,
-        userDocument.first_name,
-        userDocument.last_name,
-      );
-    });
+    const users = userDocuments.map((userDocument) =>
+      this.transform(userDocument),
+    );
 
     return users;
   }

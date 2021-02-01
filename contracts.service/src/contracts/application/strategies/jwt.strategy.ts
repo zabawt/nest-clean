@@ -3,17 +3,23 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
+const cookieExtractor = (req) => {
+  console.error('cookies', req.cookies);
+  return req.cookies['jwt'] || {};
+};
+
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
-  constructor(private configService: ConfigService) {
+export class JwtStrategy extends PassportStrategy(Strategy) {
+  constructor(private readonly configService: ConfigService) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
       ignoreExpiration: false,
       secretOrKey: configService.get<string>('JWT_SECRET'),
     });
   }
 
   async validate(payload: any) {
-    return { userId: payload.sub };
+    console.error('payload', payload);
+    return { userId: payload.sub, username: payload.username };
   }
 }

@@ -1,10 +1,10 @@
 @URL = http://localhost:3020/contracts
-@JWT = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YWM0ZDYzMy01MzMyLTRkYjktYTQyMS1lZjQ4ZmZhODI3NDciLCJuYW1lIjoiTmVkIEtlbmF3YXkiLCJpYXQiOjE1MTYyMzkwMjJ9.Zy8AEkGDp7dbXjowlmnd9vcPfH4b3mZDz9UTpEkt1bc
+@JWT = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5rZW5hd2F5MCIsInN1YiI6IjVhYzRkNjMzLTUzMzItNGRiOS1hNDIxLWVmNDhmZmE4Mjc0NyIsImlhdCI6MTYxMjIxNzIxNCwiZXhwIjoxNjEyMjE4MTE0fQ.JLpC_tdzp9PqC-WS9w0cdMceeifJwrP5hzW8rmvYNdk
 @USER_MANY = b1defb25-55b3-462a-beae-fb8c785a2b95
 # @name create
 POST {{URL}} HTTP/1.1
 Content-Type: application/json
-//Authorization: Bearer {{JWT}}
+Authorization: Bearer {{JWT}}
 
 {
       "from": "{{$datetime iso8601}}",

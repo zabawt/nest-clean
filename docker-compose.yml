@@ -8,7 +8,7 @@ services:
     ports: 
       - 54050:3000
       
-  users-api:
+  users:
     restart: always
     build:
       context: ./packages/users-service

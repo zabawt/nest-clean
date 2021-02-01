@@ -23,7 +23,6 @@ export class AuthService {
     const userDto = this.httpService.post(`${url}`, signInUserDto, {
       headers: { 'x-api-key': apiKey },
     });
-
     return userDto;
   }
 

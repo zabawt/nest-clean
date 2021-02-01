@@ -11,7 +11,7 @@ const Page: NextPage<Props> = ({ contracts }) => {
 
 Page.getInitialProps = async ({ req }) => {
   const { jwt: token } = (req as NextApiRequest).cookies;
-
+  console.error(token)
   try {
     const decoded = jwt.verify(token, process.env.jwtSecret);
 
@@ -20,6 +20,7 @@ Page.getInitialProps = async ({ req }) => {
       {
         method: 'GET',
         credentials: 'include',
+        headers: new Headers({"Authorization": `Bearer ${token}`})
       },
     );
     const result = await data.json();

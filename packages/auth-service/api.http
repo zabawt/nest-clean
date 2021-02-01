@@ -1,4 +1,4 @@
-@URL = http://localhost:3000/auth
+@URL = http://localhost:3010/auth
 @LOGIN = nkenaway0
 @PASS = gTaucn27Qf5K
 POST {{URL}}/sign-in

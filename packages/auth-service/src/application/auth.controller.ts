@@ -46,6 +46,7 @@ export class AuthController {
 
         response.cookie('jwt', token.access_token, {
           httpOnly: true,
+          maxAge: 15 * 60 * 1000
         });
         return token;
       })

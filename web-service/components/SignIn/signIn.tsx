@@ -11,12 +11,12 @@ import {
 } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import React, { ChangeEvent, FormEvent, useReducer } from 'react';
-import { SignInDto } from '../../dto/signInDto';
 import { ValidationError, Validator } from 'class-validator';
 import { SignInForm } from './interfaces';
 import { reducer } from './reducer';
 import { changeField, setFormError, validateFields } from './actions';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { SignInDto } from './signInDto';
 
 const initialState: SignInForm = {
   formError: false,

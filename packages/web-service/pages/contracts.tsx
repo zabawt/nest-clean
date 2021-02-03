@@ -39,7 +39,7 @@ interface Contract {
 
 const Page: NextPage<Props> = ({ contracts, authorizationError }) => {
   React.useEffect(() => {
-    if (authorizationError) {
+    if (authorizationError || contracts === undefined) {
       location.replace('/');
     }
   }, []);

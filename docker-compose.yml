@@ -12,6 +12,7 @@ services:
       - 54050:3000
     environment:
       - TZ=Poland
+      - NEXT_TELEMETRY_DISABLED=1
       
   users:
     restart: always

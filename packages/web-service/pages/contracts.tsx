@@ -37,9 +37,9 @@ interface Contract {
   signatory: Signartory;
 }
 
-const Page: NextPage<Props> = ({ contracts, authorizationError }) => {
+const Page: NextPage<Props> = ({ contracts = [], authorizationError }) => {
   React.useEffect(() => {
-    if (authorizationError || contracts === undefined) {
+    if (authorizationError) {
       location.replace('/');
     }
   }, []);
@@ -94,9 +94,8 @@ const Page: NextPage<Props> = ({ contracts, authorizationError }) => {
 };
 
 Page.getInitialProps = async ({ req }): Promise<Props> => {
-  const { jwt: token } = (req as NextApiRequest).cookies;
-
   try {
+    const { jwt: token } = (req as NextApiRequest).cookies;
     const decoded: any = jwt.verify(token, process.env.jwtSecret);
 
     const data = await fetch(

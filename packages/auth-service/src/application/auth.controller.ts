@@ -42,9 +42,10 @@ export class AuthController {
       .then(async ({ data }) => {
         const token = await this.authService.login(data);
 
+        this.logger.log('time now', new Date().toString());
         response.cookie('jwt', token.access_token, {
           httpOnly: true,
-          maxAge: 15 * 60 * 1000,
+          maxAge: 2 * 60 * 60 * 1000,
         });
         return token;
       })

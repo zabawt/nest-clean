@@ -10,6 +10,8 @@ services:
       - auth
     ports: 
       - 54050:3000
+    environment:
+      - TZ=Poland
       
   users:
     restart: always
@@ -19,10 +21,10 @@ services:
     ports:
       - 54060:3000
     depends_on:
-      - mongodb
+      - mongousers
     environment:
       - API_KEY=72c49b83-9b86-490b-94cb-8eb0b6f9dc40
-      - CONNECTION_STRING=mongodb://mongodb:27017/zabawt
+      - CONNECTION_STRING=mongodb://mongousers:27017/users
 
 ### AUTH
 
@@ -38,6 +40,7 @@ services:
       - JWT_EXPIRE=900s
       - USERS_SERVICE_URL=http://users:3000/users/validate
       - USERS_API_KEY=72c49b83-9b86-490b-94cb-8eb0b6f9dc40
+      - TZ=Poland
 
 ### CONTRACTS
 
@@ -49,26 +52,32 @@ services:
     ports: 
       - 54080:3000
     depends_on:
-      - mongodb
+      - mongocontracts
     environment:
-      - CONNECTION_STRING=mongodb://mongodb:27017/zabawt
+      - CONNECTION_STRING=mongodb://mongocontracts:27017/contracts
       - JWT_SECRET=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 
       ### DB
-  mongodb: # each service should have their own persistance layer, this is being done only for showcase
+  mongousers: # each service should have their own persistance layer, this is being done only for showcase
     image: mongo
-    depends_on:
-      - mongo_seed_users
-      - mongo_seed_contracts
     ports: 
       - 27017:27017
 
-  mongo_seed_users:
+  mongocontracts: 
+    image: mongo
+    ports: 
+      - 27018:27017
+
+  mongoseed_users:
     build:
       context: ./mongo-seed-users
       dockerfile: Dockerfile
+    depends_on:
+      - mongousers
       
-  mongo_seed_contracts:
+  mongoseed_contracts:
     build:
       context: ./mongo-seed-contracts
       dockerfile: Dockerfile
+    depends_on: 
+      - mongocontracts

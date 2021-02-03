@@ -13,6 +13,7 @@ export class GetContractsForUserHandler
   async execute(query: GetContractsForUserQuery): Promise<ContractDto[]> {
     const dbQuery = { userId: query.userId };
     const contracts = await this.repository.findBy(dbQuery);
+    console.error('contracts', dbQuery);
     return contracts.map(
       (contract) =>
         new ContractDto(

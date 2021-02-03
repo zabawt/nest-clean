@@ -65,7 +65,7 @@ services:
     build:
       context: ./mongo-seed-users
       dockerfile: Dockerfile
-
+      
   mongo_seed_contracts:
     build:
       context: ./mongo-seed-contracts

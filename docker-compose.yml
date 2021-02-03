@@ -58,10 +58,17 @@ services:
   mongodb: # each service should have their own persistance layer, this is being done only for showcase
     image: mongo
     depends_on:
-      - mongo_seed
+      - mongo_seed_users
+      - mongo_seed_contracts
     ports: 
       - 27017:27017
-  mongo_seed:
+
+  mongo_seed_users:
     build:
-      context: ./mongo-seed
+      context: ./mongo-seed-users
+      dockerfile: Dockerfile
+      
+  mongo_seed_contracts:
+    build:
+      context: ./mongo-seed-contracts
       dockerfile: Dockerfile

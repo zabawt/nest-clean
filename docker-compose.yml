@@ -5,6 +5,9 @@ services:
     build: 
       context: ./packages/web-service
       dockerfile: Dockerfile
+    depends_on:
+      - contracts
+      - auth
     ports: 
       - 54050:3000
       
@@ -13,8 +16,6 @@ services:
     build:
       context: ./packages/users-service
       dockerfile: Dockerfile
-    # volumes:
-    #   - ./users.service:/app
     ports:
       - 54060:3000
     depends_on:

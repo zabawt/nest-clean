@@ -64,7 +64,7 @@ const Page: NextPage<Props> = ({ contracts, authorizationError }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {contracts.map((contract) => (
+                {contracts?.map((contract) => (
                   <TableRow key={contract.id}>
                     <TableCell component="th" scope="row">
                       {contract.id}

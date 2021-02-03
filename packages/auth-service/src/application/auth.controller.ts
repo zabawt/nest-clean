@@ -41,9 +41,9 @@ export class AuthController {
       .toPromise()
       .then(async ({ data }) => {
         const token = await this.authService.login(data);
-
         response.cookie('jwt', token.access_token, {
           httpOnly: true,
+          expires: false,
           maxAge: 15 * 60 * 1000,
         });
         return token;

@@ -1,3 +1,10 @@
 FROM mongo
 COPY users.json /users.json
-CMD mongoimport --host mongodb --db zabawt --collection 'Users' --drop mode --upsert --type json --file /users.json --jsonArray 
+CMD mongoimport --host mongousers \
+--db users \
+--collection 'Users' \
+--mode upsert \
+--upsertFields id \
+--type json \
+--file /users.json \
+--jsonArray 

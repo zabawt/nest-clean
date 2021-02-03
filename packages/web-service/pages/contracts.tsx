@@ -37,7 +37,10 @@ interface Contract {
   signatory: Signartory;
 }
 
-const Page: NextPage<Props> = ({ contracts = [], authorizationError }) => {
+const Page: NextPage<Props> = ({
+  contracts = [],
+  authorizationError = false,
+}) => {
   React.useEffect(() => {
     if (authorizationError) {
       location.replace('/');
@@ -109,6 +112,7 @@ Page.getInitialProps = async ({ req }): Promise<Props> => {
     const authorizationError = false;
     return { contracts, authorizationError };
   } catch (err) {
+    console.error('msg', err);
     return { authorizationError: true };
   }
 };

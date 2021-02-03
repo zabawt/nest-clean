@@ -84,7 +84,6 @@ export class ContractController {
   @ApiBadRequestResponse()
   @ApiOkResponse()
   async getContractsForUser(@Param('id') id: string): Promise<ContractDto[]> {
-    this.logger.debug('log', id);
     return await this.queryBus.execute(new GetContractsForUserQuery(id));
   }
 }

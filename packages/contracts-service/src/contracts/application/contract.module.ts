@@ -1,4 +1,4 @@
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Logger, Module } from '@nestjs/common';
@@ -19,6 +19,8 @@ import { IdGeneratorService } from './services/id-generator.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { GetContractsForUserHandler } from './queries/get-contracts-for-user.handler';
 import { GetContractsForUserQuery } from './queries/get-contracts-for-user.query';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -27,6 +29,14 @@ import { GetContractsForUserQuery } from './queries/get-contracts-for-user.query
     MongooseModule.forFeature([
       { name: Contract.name, schema: ContractSchema, collection: 'Contracts' },
     ]),
+    PassportModule,
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
+      }),
+      inject: [ConfigService],
+    }),
   ],
   controllers: [ContractController],
   providers: [

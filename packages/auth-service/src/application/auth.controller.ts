@@ -5,10 +5,8 @@ import {
   Body,
   NotImplementedException,
   UnauthorizedException,
-  BadGatewayException,
   Logger,
   Res,
-  Options,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
@@ -46,7 +44,7 @@ export class AuthController {
 
         response.cookie('jwt', token.access_token, {
           httpOnly: true,
-          maxAge: 15 * 60 * 1000
+          maxAge: 15 * 60 * 1000,
         });
         return token;
       })

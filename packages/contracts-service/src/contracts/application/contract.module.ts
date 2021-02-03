@@ -21,7 +21,6 @@ import { GetContractsForUserHandler } from './queries/get-contracts-for-user.han
 import { GetContractsForUserQuery } from './queries/get-contracts-for-user.query';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { ContractsService } from './services/contracts.service';
 
 @Module({
   imports: [
@@ -41,7 +40,6 @@ import { ContractsService } from './services/contracts.service';
   ],
   controllers: [ContractController],
   providers: [
-    ContractsService,
     CreateContractCommand,
     CreateContractHandler,
     GetContractsQuery,

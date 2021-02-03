@@ -5,7 +5,6 @@ import Navigation from '../components/navigation';
 import {
   Box,
   Container,
-  makeStyles,
   Paper,
   Table,
   TableBody,
@@ -61,9 +60,8 @@ const Page: NextPage<Props> = ({
                   <TableCell>Contract Id</TableCell>
                   <TableCell align="right">Created</TableCell>
                   <TableCell align="right">Updated</TableCell>
-                  <TableCell align="right">Valid from:</TableCell>
-                  <TableCell align="right">Valid to:</TableCell>
-                  <TableCell align="left">Signatory id:</TableCell>
+                  <TableCell align="right">Valid from</TableCell>
+                  <TableCell align="right">Valid to</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -84,7 +82,6 @@ const Page: NextPage<Props> = ({
                     <TableCell align="right">
                       {formatDate(contract.validityPeriod.until)}
                     </TableCell>
-                    <TableCell align="left">{contract.signatory.id}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -112,7 +109,7 @@ Page.getInitialProps = async ({ req }): Promise<Props> => {
     const authorizationError = false;
     return { contracts, authorizationError };
   } catch (err) {
-    console.error('msg', err);
+    console.error('Error:', err);
     return { authorizationError: true };
   }
 };

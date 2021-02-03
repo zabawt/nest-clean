@@ -1,4 +1,4 @@
-@URL = http://localhost:54080/contracts
+@URL = http://localhost:3020/contracts
 @JWT = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5rZW5hd2F5MCIsInN1YiI6IjVhYzRkNjMzLTUzMzItNGRiOS1hNDIxLWVmNDhmZmE4Mjc0NyIsImlhdCI6MTYxMjIxNzIxNCwiZXhwIjoxODkzNDU2MDAwfQ.t1ByaqsdOgZGzOf1aPif87zjIe8LS7vHecjszQyrMIU
 @USER_MANY = 5ac4d633-5332-4db9-a421-ef48ffa82747
 # @name create

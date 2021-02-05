@@ -10,7 +10,7 @@ interface Props {
   contracts?: Contract[];
 }
 
-const Page: NextPage<Props> = ({ contracts = [] }) => {
+const ContractsView: NextPage<Props> = ({ contracts = [] }) => {
   return (
     <main>
       <Navigation />
@@ -23,7 +23,7 @@ const Page: NextPage<Props> = ({ contracts = [] }) => {
   );
 };
 
-Page.getInitialProps = async ({ req, res }): Promise<Props> => {
+ContractsView.getInitialProps = async ({ req, res }): Promise<Props> => {
   try {
     const authService = new AuthService();
     const token = await authService.getToken(req as NextApiRequest);
@@ -42,4 +42,4 @@ Page.getInitialProps = async ({ req, res }): Promise<Props> => {
   }
 };
 
-export default Page;
+export default ContractsView;

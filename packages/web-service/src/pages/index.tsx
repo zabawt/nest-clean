@@ -11,7 +11,7 @@ interface Props {
 
 const Logged: React.FC<any> = () => (
   <Paper>
-    <Box mx="auto" padding={3}>
+    <Box mx="auto" padding={2}>
       You are already logged in, please log-out in order to sign to other
       account.
     </Box>
